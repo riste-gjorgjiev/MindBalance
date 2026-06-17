@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindBalance — твоja градина на здрави навики</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__brand">
+    <span class="topbar__mark" aria-hidden="true">🌱</span>
+    <span class="topbar__name">Mind Balance</span>
+  </div>
+  <nav class="topbar__nav" aria-label="Главна навигација">
+    <a href="#denes">Денес</a>
+    <a href="#istorija">Историја</a>
+    <a href="#zaspienje">Факти</a>
+      <a href="#proekt">За проектот</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- DAILY CHECK-IN + GARDEN -->
+  <section class="app" id="denes">
+    <div class="app__head">
+      <h1>Секој ден храни ја твоjата градина</h1>
+      <p class="app__lede">Штиклирај кои здрави навики ги имаше денес. Со време, твоjата градина расте — бавно при пропуштени денови, побрзо при добри навики.</p>
+    </div>
+
+    <div class="app__grid">
+
+      <div class="checkin">
+        <h2 class="checkin__title">Денешна проверка</h2>
+        <ul class="habit-list">
+          <li class="habit">
+            <label>
+              <input type="checkbox" data-habit="sleep">
+              <span class="habit__icon">😴</span>
+              <span class="habit__text">Спиев 8+ часа ноќеска</span>
+            </label>
+          </li>
+          <li class="habit">
+            <label>
+              <input type="checkbox" data-habit="activity">
+              <span class="habit__icon">🏃</span>
+              <span class="habit__text">Бев физички активен/активна</span>
+            </label>
+          </li>
+          <li class="habit">
+            <label>
+              <input type="checkbox" data-habit="screenfree">
+              <span class="habit__icon">📵</span>
+              <span class="habit__text">Screen-free пауза пред спиење (30+ мин)</span>
+            </label>
+          </li>
+          <li class="habit">
+            <label>
+              <input type="checkbox" data-habit="water">
+              <span class="habit__icon">💧</span>
+              <span class="habit__text">Пиев доволно вода</span>
+            </label>
+          </li>
+          <li class="habit">
+            <label>
+              <input type="checkbox" data-habit="outdoors">
+              <span class="habit__icon">🌳</span>
+              <span class="habit__text">Излегов на свеж воздух / надвор</span>
+            </label>
+          </li>
+        </ul>
+
+        <button class="btn btn--primary btn--wide" id="saveDayBtn">Зачувај ден →</button>
+        <p class="checkin__hint">Демо-режим: кликни неколку пати да видиш како твоjата градина расте низ „денови“.</p>
+
+        <div class="badges">
+          <span class="badge"><span class="badge__num" id="dayCount">0</span><span class="badge__label">денови</span></span>
+          <span class="badge"><span class="badge__num" id="streakCount">0</span><span class="badge__label">низа денови </span></span>
+        </div>
+      </div>
+
+      <div class="garden-wrap">
+        <div class="garden-sky">
+          <svg id="gardenSvg" viewBox="0 0 320 260" role="img" aria-label="Илустрација на растечка градина според твоите навики">
+            <ellipse cx="160" cy="232" rx="95" ry="14" class="garden-soil"/>
+            <line x1="160" y1="228" x2="160" y2="80" id="stemLine" class="garden-stem"/>
+            <g id="leaf1" class="garden-leaf">
+              <path d="M160,170 C130,160 120,140 140,128 C155,140 160,155 160,170 Z" class="garden-leaf__shape"/>
+            </g>
+            <g id="leaf2" class="garden-leaf">
+              <path d="M160,150 C190,140 200,120 180,108 C165,120 160,135 160,150 Z" class="garden-leaf__shape"/>
+            </g>
+            <g id="bud" class="garden-bud">
+              <circle cx="160" cy="80" r="11" class="garden-bud__shape"/>
+            </g>
+            <g id="flower" class="garden-flower">
+              <circle cx="160" cy="58" r="9" class="petal"/>
+              <circle cx="178" cy="70" r="9" class="petal"/>
+              <circle cx="172" cy="92" r="9" class="petal"/>
+              <circle cx="148" cy="92" r="9" class="petal"/>
+              <circle cx="142" cy="70" r="9" class="petal"/>
+              <circle cx="160" cy="75" r="8" class="flower-center"/>
+            </g>
+          </svg>
+        </div>
+        <p class="garden-stage" id="gardenStage">Никулец</p>
+        <p class="garden-pct"><span id="growthPct">15</span>% израстеност</p>
+        <p class="garden-msg" id="gardenMsg"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section class="panel" id="istorija">
+    <div class="panel__head">
+      <p class="eyebrow">Историја</p>
+      <h2>Твоjата серија до сега</h2>
+    </div>
+    <p class="panel__sub" id="historyEmpty">Сѐ уште немаш зачувани денови — кликни „Зачувај ден“ погоре да започнеш.</p>
+    <div class="history-strip" id="historyStrip" hidden></div>
+  </section>
+
+  <!-- SLEEP SCIENCE -->
+  <section class="panel panel--dark" id="zaspienje">
+    <div class="panel__head">
+      <p class="eyebrow">Зошто спиењето е важно</p>
+      <h2>Што покажуваат податоците</h2>
+      <p class="panel__sub">Наоди инспирирани од HBSC (Health Behaviour in School-aged Children) истражувањата.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-card__num">8–10ч</span>
+        <p class="stat-card__text">препорачано времетраење на сон за адолесценти, според здравствените насоки усогласени со HBSC-индикаторите.</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__num">11 -> 15г.</span>
+        <p class="stat-card__text">просечниот сон на училишен ден значително опаѓа со возраста — на 11 г. учениците спијат во просек околу 9ч 26мин, а потоа сѐ помалку.</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__num">25% / 18%</span>
+        <p class="stat-card__text">девојчиња наспроти момчиња (11–15 г.) кои пријавуваат тешкотии при заспивање, во истражување во 38 земји.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="panel panel--about" id="proekt">
+    <div class="panel__head">
+      <p class="eyebrow">За проектот</p>
+      <h2>Проблем, целна група и impact</h2>
+    </div>
+    <div>
+
+        <div class="stat-grid">
+
+            <div class="stat-card">
+                <h3>🎯 Проблем</h3>
+                <p>
+                    Учениците сè почесто се соочуваат со стрес,
+                    анксиозност и намалена психолошка добросостојба.
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>👨‍🎓 Целна група</h3>
+                <p>
+                    Ученици од 11 до 15 години.
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>⚙️ Како работи?</h3>
+                <p>
+                    Преку дневно следење на навики и визуелен
+                    приказ на напредокот.
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🌟 Impact</h3>
+                <p>
+                    Поттикнување здрави навики и подобра грижа
+                    за менталното здравје.
+                </p>
+            </div>
+
+        </div>
+    </div>
+  </section>
+
+</main>
+
+<!--<footer class="footer">-->
+<!--  <p>Изработено како дополнителна задача по ПНУВ · инспирирано од HBSC (Health Behaviour in School-aged Children) · едукативен прототип, без чување податоци на сервер.</p>-->
+<!--</footer>-->
+задача по ПНУВ · инспирирано од HBSC (Health Behaviour in School
+<footer class="footer">
+
+    <h2>MindBalance</h2>
+
+    <p>
+        Дигитално решение за поддршка на менталното здравје,
+        намалување на стресот и развивање позитивни навики кај младите.
+    </p>
+
+    <div class="footer-tags">
+        <span>Mental Health , </span>
+        <span>Wellbeing , </span>
+        <span>Stress Management</span>
+    </div>
+
+
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
