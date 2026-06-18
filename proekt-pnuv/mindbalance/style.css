@@ -1,0 +1,243 @@
+/* ============================================================
+   Никни — design tokens
+   ============================================================ */
+:root{
+  --ink:        #211A36;
+  --surface:    #2D2347;
+  --surface-2:  #3A2D5C;
+  --green:      #8FCB6B;   /* growth */
+  --gold:       #F2C265;   /* dawn / streak / water highlight */
+  --pink:       #E991A8;   /* flower petals */
+  --text:       #F4F1EA;
+  --muted:      #A89BC2;
+
+  --font-display: "Fredoka", sans-serif;
+  --font-body:    "Nunito", sans-serif;
+  --font-mono:    "Space Mono", monospace;
+
+  --radius: 16px;
+  --max-w: 1080px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+::selection{ background: var(--green); color: var(--ink); }
+a{ color: var(--green); }
+
+:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1,h2,h3{ font-family: var(--font-display); font-weight: 600; margin: 0 0 0.4em; }
+p{ margin: 0 0 1em; color: var(--text); }
+
+.eyebrow{
+  font-family: var(--font-mono);
+  font-size: 0.90rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.6em;
+}
+
+/* ============================================================
+   Topbar
+   ============================================================ */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 1.4rem clamp(1.2rem, 4vw, 3rem);
+  max-width: 1280px; margin: 0 auto;
+}
+.topbar__brand{ display:flex; align-items:center; gap:0.5rem; font-family: var(--font-display); font-weight:600; font-size:1.25rem; }
+.topbar__mark{ font-size:1.4rem; }
+.topbar__nav{ display:flex; gap: clamp(0.8rem, 2vw, 1.6rem); font-family: var(--font-mono); font-size: 0.90rem; }
+.topbar__nav a{ color: var(--muted); text-decoration:none; }
+.topbar__nav a:hover{ color: var(--text); }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;
+  font-family: var(--font-display); font-weight:600; font-size: 1rem;
+  padding: 0.85rem 1.6rem; border-radius: 999px; border: 1px solid transparent;
+  cursor:pointer; text-decoration:none; transition: transform .15s ease, background .15s ease;
+}
+.btn--primary{ background: var(--green); color: var(--ink); }
+.btn--primary:hover{ transform: translateY(-1px); background:#a3d984; }
+.btn--wide{ width:100%; }
+
+/* ============================================================
+   App section (daily check-in dashboard — the page's main job)
+   ============================================================ */
+.app{
+  max-width: 1180px; margin: 0 auto;
+  padding: clamp(1rem, 4vw, 2rem) clamp(1.2rem, 4vw, 2.5rem) clamp(2.5rem, 5vw, 4rem);
+}
+.app__head{ max-width: 60ch; margin-bottom: 2rem; }
+.app__head h1{ font-size: clamp(1.9rem, 4vw, 2.6rem); line-height:1.15; }
+.app__lede{ color: var(--muted); }
+
+.app__grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  align-items: stretch;
+}
+
+.checkin{
+  background: var(--surface); border-radius: var(--radius);
+  padding: 1.8rem; display:flex; flex-direction:column;
+}
+.checkin__title{ font-size: 1.2rem; margin-bottom: 1rem; }
+.habit-list{ list-style:none; margin:0 0 1.2rem; padding:0; display:flex; flex-direction:column; gap:0.7rem; }
+.habit label{
+  display:flex; align-items:center; gap:0.7rem; cursor:pointer;
+  background: var(--surface-2); padding: 0.7rem 0.9rem; border-radius: 12px;
+  transition: background .15s ease;
+}
+.habit input[type="checkbox"]{ width:18px; height:18px; accent-color: var(--green); cursor:pointer; flex-shrink:0; }
+.habit__icon{ font-size: 1.2rem; }
+.habit__text{ font-size: 0.95rem; }
+.habit:has(input:checked) label{ background: rgba(143,203,107,0.18); }
+
+.checkin__hint{ font-size: 0.8rem; color: var(--muted); margin: 0.7rem 0 0; }
+
+.badges{ display:flex; gap: 0.8rem; margin-top: 1.2rem; }
+.badge{
+  background: var(--surface-2); border-radius: 12px; padding: 0.7rem 1rem;
+  display:flex; flex-direction:column; align-items:center; flex:1;
+}
+.badge__num{ font-family: var(--font-mono); font-size: 1.4rem; color: var(--gold); font-weight:700; }
+.badge__label{ font-size: 0.72rem; color: var(--muted); }
+
+/* ============================================================
+   Garden visual (signature element)
+   ============================================================ */
+.garden-wrap{
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  border-radius: var(--radius); overflow:hidden; background: var(--surface);
+}
+.garden-sky{
+  width:100%; aspect-ratio: 320/260;
+  background: linear-gradient(180deg, #211A36 0%, #3A2D5C 55%, #6B4E78 80%, #C98A6B 100%);
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.garden-sky svg{ width: 100%; height: 100%; }
+.garden-soil{ fill: #4A3A2C; }
+.garden-stem{
+  stroke: var(--green); stroke-width: 6; stroke-linecap: round;
+  stroke-dasharray: 148; stroke-dashoffset: 148;
+  transition: stroke-dashoffset 0.8s ease;
+}
+.garden-leaf{ opacity: 0; transform-origin: center; transition: opacity 0.6s ease; }
+.garden-leaf__shape{ fill: var(--green); }
+.garden-bud{ opacity: 0; transition: opacity 0.5s ease; }
+.garden-bud__shape{ fill: #C9DDA0; }
+.garden-flower{ opacity: 0; transition: opacity 0.6s ease; }
+.petal{ fill: var(--pink); }
+.flower-center{ fill: var(--gold); }
+
+.garden-stage{ font-family: var(--font-display); font-size: 1.15rem; margin: 1rem 0 0.2rem; }
+.garden-pct{ font-family: var(--font-mono); color: var(--muted); font-size: 0.85rem; margin: 0; }
+.garden-msg{ font-size: 0.85rem; color: var(--gold); min-height: 1.4em; margin: 0.5rem 0 1.2rem; }
+
+/* ============================================================
+   Panels
+   ============================================================ */
+.panel{
+  max-width: var(--max-w); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.2rem, 4vw, 2rem);
+}
+.panel--dark{ background: var(--surface); border-radius: var(--radius); margin: 1rem auto 2rem; }
+.panel__head{ max-width: 60ch; margin-bottom: 2rem; }
+.panel__sub{ color: var(--muted); }
+
+/* ============================================================
+   History strip
+   ============================================================ */
+.history-strip{ display:flex; flex-wrap:wrap; gap: 0.6rem; }
+.history-dot{
+  width: 44px; height: 44px; border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight:700; color: var(--ink);
+}
+.history-dot--high{ background: var(--green); }
+.history-dot--mid{ background: var(--gold); }
+.history-dot--low{ background: var(--surface-2); color: var(--muted); }
+
+/* ============================================================
+   Sleep stats
+   ============================================================ */
+.stat-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.stat-card{ background: var(--surface-2); border-radius: var(--radius); padding: 1.6rem; }
+.stat-card__num{ display:block; font-family: var(--font-mono); font-size: 1.8rem; color: var(--gold); font-weight:700; }
+.stat-card__text{ color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 0; }
+.stat-card:hover {
+    transform: translateY(-5px);
+    background: var(--ink);
+}
+#proekt > div:nth-child(2) > div > div:nth-child(n):hover {
+    transform: translateY(-5px);
+    background: var(--muted);
+}
+
+
+/* ============================================================
+   About
+   ============================================================ */
+.about-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 1.8rem 2.5rem; }
+.about-grid h3{ font-size: 1.05rem; color: var(--green); }
+.about-grid p{ color: var(--muted); }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer{
+    text-align:center;
+    padding: 2.4rem 1.2rem 3rem;
+    font-size: 16px;
+    color: var(--muted);
+    background: #e6eaf2;
+    margin-top: 60px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.footer h2 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.footer p {
+    color: var(--muted);
+    max-width: 700px;
+    margin: auto;
+}
+
+.footer-tags {
+    margin-top: 18px;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 860px){
+  .app__grid{ grid-template-columns: 1fr; }
+  .stat-grid{ grid-template-columns: 1fr; }
+  .about-grid{ grid-template-columns: 1fr; }
+  .topbar{ flex-direction:column; gap: 0.8rem; }
+}
